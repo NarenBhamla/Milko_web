@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ---- ABOUT SECTION ---- */
+    .about-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 60px 10%;
+      gap: 40px;
+      background: #f9f9f9;
+    }
+
+    .about-content {
+      flex: 1;
+      animation: fadeInLeft 1s ease-in-out;
+    }
+
+    .about-content h2 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .about-content p {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+
+    .about-image {
+      flex: 1;
+      text-align: center;
+      animation: fadeInRight 1s ease-in-out;
+    }
+
+    .about-image img {
+      max-width: 400px;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .about-image img:hover {
+      transform: scale(1.05);
+    }
+
+    /* ---- Animations ---- */
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .about-section {
+        flex-direction: column;
+        text-align: center;
+      }
+      .about-image img {
+        max-width: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🥛 Milko App</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms & Conditions</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <section class="about-section">
+    <div class="about-content">
+      <h2>About Us</h2>
+      <p>We are on a mission to simplify milk delivery 🚀</p>
+      <p>
+        Milko is a <b>smart daily milk management app</b> designed for both 
+        customers and milkmen. We make sure your mornings start fresh with 
+        hassle-free milk delivery at your doorstep.
+      </p>
+      <p>
+        With Milko, you get <b>easy ordering, transparent billing, and timely delivery</b>.  
+        For milkmen, we provide <b>digital records, automated reminders, and customer tracking</b>.
+      </p>
+      <p>
+        🌟 Our vision is to build a <b>trustworthy digital bridge</b> between 
+        milk suppliers and families across India.  
+      </p>
+    </div>
+
+    <div class="about-image">
+      <!-- free, copyright-free illustration -->
+      <img src="https://cdn-icons-png.flaticon.com/512/744/744465.png" alt="About Milko">
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Milko App | All Rights Reserved</p>
+  </footer>
+</body>
+</html>
