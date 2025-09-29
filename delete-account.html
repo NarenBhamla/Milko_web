@@ -72,7 +72,7 @@ function sendOtp() {
 
   userMobile = '+91' + mobile;
 
-  fetch('https://virpoweral.ppi.ineabhiss.milko.co.in/v1/seller/register/mobile', {
+  fetch('https://preprod.api.business.milko.co.in/v1/seller/register/phone', {
     method: 'POST',
     headers: { 'Content-Type':'application/json' },
     body: JSON.stringify({ phone_number: userMobile })
@@ -88,31 +88,80 @@ function sendOtp() {
 
 function verifyOtp() {
   const otp = document.getElementById('otp').value;
-  if(otp.length !== 6) { alert("Enter 6-digit OTP"); return; }
+  if (otp.length !== 6) {
+    alert("Enter 6-digit OTP");
+    return;
+  }
 
-  fetch('https://virpoweral.ppi.ineabhiss.milko.co.in/v1/seller/verify/mobile', {
+  fetch('https://preprod.api.business.milko.co.in/v1/seller/verify/phone', {
     method: 'POST',
-    headers: { 'Content-Type':'application/json' },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ phone_number: userMobile, otp: otp })
   })
-  .then(res => res.json())
-  .then(data => {
-    console.log(data);
-    if(data.success || data.status === 'verified') {
-      alert("OTP Verified!");
-      document.getElementById('deleteSection').style.display = 'block';
-    } else {
-      alert("Invalid OTP");
-    }
-  })
-  .catch(err => { console.error(err); alert("OTP verification failed"); });
+    .then(async res => {
+      const data = await res.json();
+      console.log("API Response:", data);
+
+      if (res.status === 200 && data.data && data.data.access_token) {
+        alert("✅ OTP Verified!");
+        // save access_token & seller_id for delete API
+        localStorage.setItem("milko_token", data.data.access_token);
+        localStorage.setItem("milko_seller_id", data.data.seller_id);
+
+        // show delete section
+        document.getElementById('deleteSection').style.display = 'block';
+      } else {
+        alert("❌ Invalid OTP, please try again.");
+      }
+    })
+    .catch(err => {
+      console.error("Error verifying OTP:", err);
+      alert("OTP verification failed, please retry.");
+    });
 }
 
 function deleteAccount() {
-  if(confirm("Are you sure you want to permanently delete your account? This action is irreversible.")) {
-    alert("Your account has been deleted (demo). Implement API call to delete on backend.");
+  const token = localStorage.getItem("milko_token");
+  const sellerId = localStorage.getItem("milko_seller_id");
+
+  if (!token || !sellerId) {
+    alert("User not authenticated. Please verify OTP again.");
+    return;
+  }
+
+  if (confirm("Are you sure you want to permanently delete your account? This action is irreversible.")) {
+    fetch('https://preprod.api.business.milko.co.in/v1/seller', {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        is_deleted: true
+      })
+    })
+      .then(async res => {
+        const data = await res.json();
+        console.log("Delete Response:", data);
+
+        if (res.status === 200 && data.data) {
+          alert("✅ Your account has been permanently deleted.");
+          // clear saved data
+          localStorage.removeItem("milko_token");
+          localStorage.removeItem("milko_seller_id");
+          // redirect home
+          window.location.href = "index.html";
+        } else {
+          alert("❌ Failed to delete account. Please try again.");
+        }
+      })
+      .catch(err => {
+        console.error("Delete API Error:", err);
+        alert("Something went wrong while deleting your account.");
+      });
   }
 }
+
 </script>
 
 </body>
