@@ -54,25 +54,13 @@
 
     /* ---- Animations ---- */
     @keyframes fadeInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
     }
 
     @keyframes fadeInRight {
-      from {
-        opacity: 0;
-        transform: translateX(50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
+      from { opacity: 0; transform: translateX(50px); }
+      to { opacity: 1; transform: translateX(0); }
     }
 
     /* Responsive */
@@ -89,9 +77,8 @@
 </head>
 <body>
   <header>
-   
-  </div>
-   <img src="images/Graphicsfamily.png" alt="Milko Logo" style="height:100px;">
+    <img src="images/Graphicsfamily.png" alt="Milko Logo" style="height:100px;">
+
     <nav>
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
@@ -103,49 +90,67 @@
 
   <section class="about-section">
     <div class="about-content">
-      <h2>About Us</h2>
-<p>
-  Milko is a <b>smart daily milk delivery app</b> designed to simplify life for both families and milkmen.  
-  Our mission is to ensure that every household receives <b>fresh, hygienic milk</b> every morning, hassle-free.
-</p>
+  <h2>About Us</h2>
+  <p>
+    Milko , Milko Biz is a <b>smart daily milk delivery app</b> designed to simplify life for both families and milkmen.  
+    Our mission is to ensure that every household receives <b>fresh, hygienic milk</b> every morning, hassle-free.
+  </p>
 
-<p>
-  We connect <b>customers and milk suppliers</b> through a reliable digital platform, making milk management easier than ever.  
-  With Milko, you can <b>schedule deliveries, track orders, manage subscriptions</b>, and enjoy transparent billing.
-</p>
+  <p>
+    We connect <b>customers and milk suppliers</b> through a reliable digital platform, making milk management easier than ever.  
+    With Milko, you can <b>schedule deliveries, track orders, manage subscriptions</b>, and enjoy transparent billing.
+  </p>
 
-<p>
-  For milkmen, Milko provides a <b>digital record-keeping system</b> that helps them track deliveries, automate billing, and manage customers efficiently.  
-  This reduces manual errors and allows milkmen to focus on providing quality service.
-</p>
+  <p>
+    For milkmen, Milko Biz provides a <b>digital record-keeping system</b> that helps them track deliveries, automate billing, and manage customers efficiently.  
+    This reduces manual errors and allows milkmen to focus on providing quality service.
+  </p>
 
-<h3>Our Vision</h3>
-<p>
-  To build a <b>trustworthy digital bridge</b> between milk suppliers and families across India, ensuring reliability, convenience, and transparency.
-</p>
+  <p>
+    <b>Find Nearby Milkmen:</b> Customers can easily find nearby milkmen using Milko, making it simple to get fresh milk even if they move to a new location.  
+    This feature ensures that everyone has quick access to reliable milk suppliers wherever they are.
+  </p>
 
-<h3>Our Mission</h3>
-<ul>
-  <li>Deliver fresh, high-quality milk at your doorstep every morning</li>
-  <li>Make milk management simple and efficient for both customers and milkmen</li>
-  <li>Provide transparent billing and timely notifications</li>
-  <li>Support milk suppliers with digital tools to grow their business</li>
-</ul>
+  <h3>Our Vision</h3>
+  <p>
+    To build a <b>trustworthy digital bridge</b> between milk suppliers and families across India, ensuring reliability, convenience, and transparency.
+  </p>
 
-<p>
-  Join Milko today and experience a <b>smarter, easier, and more reliable milk delivery service</b>.
-</p>
+  <h3>Our Mission</h3>
+  <ul>
+    <li>Deliver fresh, high-quality milk at your doorstep every morning</li>
+    <li>Make milk management simple and efficient for both customers and milkmen</li>
+    <li>Provide transparent billing and timely notifications</li>
+    <li>Support milk suppliers with digital tools to grow their business</li>
+    <li>Help customers easily find nearby milkmen, even in new locations</li>
+  </ul>
 
-    </div>
+  <p>
+    Join Milko , Milko Biz today and experience a <b>smarter, easier, and more reliable milk delivery service</b>.
+  </p>
+</div>
+
 
     <div class="about-image">
-      <!-- free, copyright-free illustration -->
       <img src="images/milkman_customer.png" alt="About Milko">
     </div>
   </section>
 
   <footer>
-    <p>© 2025 Milko App | Operated by DigitalRocketships.LLP | All Rights Reserved</p>
+    <p>© 2025 Milko / Milko Biz App | Operated by DigitalRocketships.LLP | All Rights Reserved</p>
   </footer>
+
+  <script>
+    // Embedded view logic: hide header/footer if ?embedded=true
+    window.addEventListener('DOMContentLoaded', () => {
+      const isEmbedded = window.location.search.includes('embedded=true');
+      if(isEmbedded) {
+        const header = document.querySelector('header');
+        const footer = document.querySelector('footer');
+        if(header) header.style.display = 'none';
+        if(footer) footer.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>
