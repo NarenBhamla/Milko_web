@@ -1,54 +1,126 @@
+/* -------------------- GLOBAL STYLES -------------------- */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   background: #f9f9f9;
   color: #333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
+h1, h2, p {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+.site-title {
+  font-family: 'Lobster', cursive; /* Google Font */
+  font-size: 3rem;
+  background: linear-gradient(90deg, #ff6600, #2a9df4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+/* -------------------- HEADER -------------------- */
+
+/* Logo left styling */
+.logo-left {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.logo-left .logo {
+  width: 100px;
+  height: auto;
+}
+
+/* Header styling (clean, merged) */
 header {
-  background: #2a9df4;
+  position: relative;
+  background: #537CC3; /* Final color */
   color: white;
-  padding: 15px;
+  padding: 20px 10px;
   text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+  /* animation */
+  opacity: 0;
+  transform: translateY(-30px);
+  animation: slideFadeIn 1s forwards;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: white;
+
+  /* animation */
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: slideFadeIn 1s forwards 0.3s; /* delay for h1 */
+}
+
+nav {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 nav a {
   color: white;
-  margin: 0 15px;
-  text-decoration: none;
   font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: 0.3s, color 0.3s;
+
+  /* animation */
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: slideFadeIn 0.8s forwards 0.6s; /* delay for nav links */
 }
 
 nav a:hover {
-  text-decoration: underline;
+  background-color: #36589f; /* darker shade for hover */
+  color: #fff;
 }
 
+/* Responsive header for mobile */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+  nav {
+    gap: 10px;
+  }
+  nav a {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+  }
+}
+
+/* -------------------- CONTAINER -------------------- */
 .container {
-  max-width: 900px;
+  max-width: 1100px;
   margin: auto;
   padding: 20px;
+  flex: 1;
 }
 
-h2 {
-  color: #2a9df4;
-}
-
-button {
-  background: #2a9df4;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-button:hover {
-  background: #1a7dcf;
-}
-
-/* ---- HOME SECTION ---- */
+/* -------------------- HOME SECTION -------------------- */
 .home-section {
   display: flex;
   justify-content: space-between;
@@ -106,40 +178,49 @@ button:hover {
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-/* ---- CONTACT FORM ---- */
-
-
-/* Row ko 2 columns me divide karna */
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;   /* 2 equal columns */
-  gap: 20px;                        /* 👈 dono ke beech gap */
-  margin-bottom: 20px;
+/* ---- HOME SECTION ANIMATION ---- */
+.home-content,
+.home-image {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeSlideUp 1s forwards;
 }
 
-/* Har input group */
-.form-group {
-  display: flex;
-  flex-direction: column;
+.home-content {
+  animation-delay: 0.3s;
 }
 
-.contact-form input,
-.contact-form textarea {
-  padding: 14px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
-  width: 100%;
-  box-sizing: border-box;
+.home-image {
+  animation-delay: 0.6s;
 }
 
+/* Keyframes for fade + slide up */
+@keyframes fadeSlideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
+/* -------------------- ABOUT SECTION -------------------- */
+.about-section {
+  padding: 40px 20px;
+  margin-top: 0;
+}
+
+.about-section h2 {
+  margin-top: 0;
+  padding-top: 10px;
+  color: #2a9df4;
+}
+
+/* -------------------- CONTACT FORM -------------------- */
 .contact-form {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* 2 columns */
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
   max-width: 800px;
-  margin: 0 auto; /* center align */
+  margin: 40px auto;
   background: #fff;
   padding: 30px;
   border-radius: 12px;
@@ -152,7 +233,7 @@ button:hover {
 }
 
 .contact-form .form-group.full-width {
-  grid-column: span 2; /* Message textarea full row */
+  grid-column: span 2;
 }
 
 .contact-form label {
@@ -168,19 +249,20 @@ button:hover {
   border-radius: 8px;
   font-size: 1rem;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
-  border-color: #009688;
+  border-color: #537CC3;
   box-shadow: 0 0 4px rgba(0,150,136,0.3);
 }
 
 .contact-form button {
-  grid-column: span 2; /* Button center full width */
+  grid-column: span 2;
   padding: 12px;
-  background: #009688;
+  background: #537CC3;
   color: #fff;
   font-size: 1.1rem;
   font-weight: 600;
@@ -194,54 +276,24 @@ button:hover {
   background: #00796b;
 }
 
-/* ✅ Responsive for mobile */
+/* Mobile responsive */
 @media (max-width: 768px) {
   .contact-form {
-    grid-template-columns: 1fr; /* stack on mobile */
+    grid-template-columns: 1fr;
   }
   .contact-form button {
     grid-column: span 1;
   }
 }
 
-
-body, h1, h2, p {
-  margin: 0;
-  padding: 0;
-}
-
-.about-section {
-  padding: 40px 20px;
-  margin-top: 0;   /* section ko bilkul header ke paas le aayega */
-}
-
-.about-section h2 {
-  margin-top: 0;
-  padding-top: 10px; /* thoda sa gap upar se */
-}
-
-/* ---- FOOTER ---- */
-html, body {
-  height: 100%;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-body {
-   display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
+/* -------------------- FOOTER -------------------- */
 footer {
-  margin-top: auto; /* ✅ footer ko bottom pe fix karne ke liye */
+  margin-top: auto;
   background: #333;
   color: #fff;
   text-align: center;
   padding: 20px 0;
 }
-
 
 .footer-container {
   display: flex;
@@ -279,6 +331,7 @@ footer {
   border-top: 1px solid #444;
   padding-top: 10px;
 }
+
 .social-icons {
   margin-top: 10px;
 }
@@ -297,3 +350,12 @@ footer {
   background: #4CAF50;
   color: #fff;
 }
+
+/* ---- Keyframes for header animation ---- */
+@keyframes slideFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delete Account - Milko</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* Delete Account specific styles */
+body { display:flex; flex-direction:column; min-height:100vh; }
+.container { flex:1; display:flex; justify-content:center; align-items:center; padding:50px 20px; background:#f9f9f9;}
+.form-box { background:#fff; padding:30px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.1); width:100%; max-width:400px; text-align:center;}
+input { width:100%; padding:12px; margin:10px 0; border-radius:6px; border:1px solid #ccc; font-size:16px;}
+button { width:100%; padding:12px; margin-top:10px; border:none; border-radius:6px; font-size:16px; cursor:pointer;}
+.send-btn { background:#3498db; color:#fff;}
+.verify-btn { background:#27ae60; color:#fff;}
+.delete-btn { background:#e74c3c; color:#fff;}
+</style>
+</head>
+<body>
+
+<!-- Header (same as home page) -->
+<header>
+<h1 class="site-title">
+  <img src="images/Graphicsfamily.png" alt="Milko Logo">
+  Milko
+</h1>
+
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms & Conditions</a>
+    <a href="contact.html">Contact</a>
+    <a href="delete-account.html">Delete Account</a>
+  </nav>
+</header>
+
+<!-- Main container -->
+<div class="container">
+  <div class="form-box">
+    <h2>Delete Account</h2>
+    <input type="text" id="mobile" placeholder="Enter Mobile Number" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+    <button class="send-btn" id="sendOtpBtn" onclick="sendOtp()">Send OTP</button>
+
+    <div id="otpSection" style="display:none;">
+      <input type="text" id="otp" placeholder="Enter OTP" maxlength="6" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+      <button class="verify-btn" onclick="verifyOtp()">Verify OTP</button>
+    </div>
+
+    <div id="deleteSection" style="display:none;">
+      <p style="color:red; font-weight:bold;">
+        Are you sure you want to permanently delete your account? This action is irreversible.
+      </p>
+      <button class="delete-btn" onclick="deleteAccount()">Delete Account</button>
+    </div>
+  </div>
+</div>
+
+<!-- Footer (same as home page) -->
+<footer>
+  <div class="footer-container">
+    <div>
+      <h4>Milko</h4>
+      <p>© 2025 Milko App | All Rights Reserved</p>
+    </div>
+    <div class="social-icons">
+      <a href="#">F</a>
+      <a href="#">T</a>
+      <a href="#">I</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+let userMobile = '';
+
+function sendOtp() {
+  const mobile = document.getElementById('mobile').value;
+  if(mobile.length !== 10) { alert("Enter valid 10-digit mobile number"); return; }
+
+  userMobile = '+91' + mobile;
+
+  fetch('https://virpoweral.ppi.ineabhiss.milko.co.in/v1/seller/register/mobile', {
+    method: 'POST',
+    headers: { 'Content-Type':'application/json' },
+    body: JSON.stringify({ phone_number: userMobile })
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log(data);
+    alert("OTP sent to " + userMobile);
+    document.getElementById('otpSection').style.display = 'block';
+  })
+  .catch(err => { console.error(err); alert("Failed to send OTP"); });
+}
+
+function verifyOtp() {
+  const otp = document.getElementById('otp').value;
+  if(otp.length !== 6) { alert("Enter 6-digit OTP"); return; }
+
+  fetch('https://virpoweral.ppi.ineabhiss.milko.co.in/v1/seller/verify/mobile', {
+    method: 'POST',
+    headers: { 'Content-Type':'application/json' },
+    body: JSON.stringify({ phone_number: userMobile, otp: otp })
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log(data);
+    if(data.success || data.status === 'verified') {
+      alert("OTP Verified!");
+      document.getElementById('deleteSection').style.display = 'block';
+    } else {
+      alert("Invalid OTP");
+    }
+  })
+  .catch(err => { console.error(err); alert("OTP verification failed"); });
+}
+
+function deleteAccount() {
+  if(confirm("Are you sure you want to permanently delete your account? This action is irreversible.")) {
+    alert("Your account has been deleted (demo). Implement API call to delete on backend.");
+  }
+}
+</script>
+
+</body>
+</html>
