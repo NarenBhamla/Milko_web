@@ -24,8 +24,7 @@ a {
 .site-title {
   font-family: 'Lobster', cursive; /* Google Font */
   font-size: 3rem;
-  background: linear-gradient(90deg, #ff6600, #2a9df4);
-  -webkit-background-clip: text;
+  background: linear-gradient(90deg, #537CC3, #537CC3);
   -webkit-text-fill-color: transparent;
   letter-spacing: 2px;
   margin: 0;
